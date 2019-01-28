@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Media><books id="main" name="book"><book id="hp" name="Harry Potter"><author id="author_hp" name="JK Rowling"/></book><book id="lotr" name="Lord of The Rings"><author id="author_lotr" name="JRR Tolkien"/></book></books></Media>

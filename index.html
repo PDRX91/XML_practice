@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Simple App</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		/>
+		<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+		<script>
+			$(document).ready(startApp);
+			function startApp() {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					makeTable(this);
+				};
+				xhttp.open('GET', 'dummy_data2.xml', true);
+				xhttp.send();
+			}
+
+			function makeTable(xml) {
+				var xmlResponse = xml.responseXML;
+				console.log(xmlResponse);
+				var table =
+					'<table class="table"><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody>';
+				var bookArray = xmlResponse.childNodes;
+				for (var i = 0; i < bookArray.length; i++) {
+					console.log(bookArray);
+				}
+				table += '</tbody></table>';
+				document.getElementById('demo').innerHTML = table;
+			}
+		</script>
+	</head>
+	<body>
+		<div id="demo"></div>
+	</body>
+</html>
