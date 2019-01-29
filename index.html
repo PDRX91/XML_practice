@@ -13,25 +13,51 @@
 		<script>
 			$(document).ready(startApp);
 			function startApp() {
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					makeTable(this);
-				};
-				xhttp.open('GET', 'dummy_data2.xml', true);
-				xhttp.send();
-			}
+				$.ajax({
+					type: 'GET',
+					url: 'dummy_data2.xml',
+					dataType: 'xml',
+					success: function(data) {
+						// Extract relevant data from XML
 
-			function makeTable(xml) {
-				var xmlResponse = xml.responseXML;
-				console.log(xmlResponse);
-				var table =
-					'<table class="table"><thead><tr><th>Title</th><th>Author</th></tr></thead><tbody>';
-				var bookArray = xmlResponse.childNodes;
-				for (var i = 0; i < bookArray.length; i++) {
-					console.log(bookArray);
-				}
-				table += '</tbody></table>';
-				document.getElementById('demo').innerHTML = table;
+						//xml was giving me tons of trouble trying to parse through in a loop
+						var xml_node = $('Media', data);
+						var hp_author = xml_node
+							.find('books > book[id=hp] > author')
+							.text();
+						var hp_title = xml_node
+							.find('books > book[id=hp] > title')
+							.text();
+						var lotr_author = xml_node
+							.find('books > book[id=lotr] > author')
+							.text();
+						var lotr_title = xml_node
+							.find('books > book[id=lotr] > title')
+							.text();
+
+						var table = `
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Title</th>
+									<th>Author</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${hp_title}</td>
+									<td>${hp_author}</td>
+								</tr>
+								<tr>
+									<td>${lotr_title}</td>
+									<td>${lotr_author}</td>
+								</tr>
+							</tbody>
+						</table>`;
+
+						$('#demo').append(table);
+					}
+				});
 			}
 		</script>
 	</head>
